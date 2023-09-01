@@ -28,7 +28,7 @@ const Project =  () => {
             </div>
                 <img src={project.projectImgs[0]} alt='Project banner'  className='h-full w-full object-cover' />
         </div>
-        <div className={'w-screen p-6 flex flex-wrap'+ isGreat } >
+        <div className={'w-screen p-6 flex flex-wrap'+ isGreat } style={{rowGap:'14px'}} >
             {/*@ts-ignore */}
             {project.projectImgs?.map((img,index)=>(<img key={index} className='object-cover shrink-0 w-[31.5%] h-[240px] max-[820px]:w-[48.5%] max-[440px]:w-[100%]' src={img} alt={project.title+'_Image_'+index}/>))}
         </div>
