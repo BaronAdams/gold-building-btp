@@ -31,7 +31,7 @@ export default function App() {
       <body className='flex flex-col overflow-x-hidden relative justify-between min-h-screen'>
         <NavBar/>
         <SideBar/>
-        <div className="mt-[10vh]">
+        <div className="mt-[10vh] w-screen overflow-x-hidden">
           <Outlet />
         </div>
         <Footer/>

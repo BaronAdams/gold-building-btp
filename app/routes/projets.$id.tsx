@@ -1,18 +1,16 @@
 import type { LoaderArgs } from "@remix-run/node"
 import { useLoaderData } from '@remix-run/react'
 import { apiUrl } from "~/constants"
-import { GBApi } from "~/utils/helper"
 
 export async function loader({ params }: LoaderArgs) {
   try {
-    // const res = await GBApi.get(`/projects/${params.id}`)
     const response = await fetch(`${apiUrl}/projects/${params.id}`,{
       method:'GET'
     })
     const res = await response.json()
     return { project: res.data }
   } catch (error) {
-    return error
+    console.log(error)
   }
 }
 

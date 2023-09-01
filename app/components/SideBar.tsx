@@ -1,4 +1,8 @@
 import { useState, useContext } from 'react'
+import { FaHome } from 'react-icons/fa'
+import { GrCircleInformation } from 'react-icons/gr'
+import { AiFillPhone, AiFillProject } from 'react-icons/ai'
+import { BiImageAlt } from 'react-icons/bi'
 import { Flowbite, Modal } from 'flowbite-react';
 import type { CustomFlowbiteTheme } from 'flowbite-react';
 import { NavLink } from '@remix-run/react';
@@ -35,23 +39,28 @@ const SideBar = () => {
     const navLinks = [
         {
             name:"Accueil",
-            href:"/"
+            href:"/",
+            icon:<FaHome className='inline mr-3'/>
         },
         {
             name:"A propos",
-            href:"/a-propos"
+            href:"/a-propos",
+            icon:<GrCircleInformation className='inline mr-3'/>
         },
         {
             name:"Projets",
-            href:"/projets"
+            href:"/projets",
+            icon:<AiFillProject className='inline mr-3'/>
         },
         {
             name:"Contacts",
-            href:"/contacts"
+            href:"/contacts",
+            icon:<AiFillPhone className='inline mr-3'/>
         },
         {
             name:"Conceptions",
-            href:"/conceptions"
+            href:"/conceptions",
+            icon:<BiImageAlt className='inline mr-3'/>
         }
     ]
   return (
@@ -67,14 +76,14 @@ const SideBar = () => {
             <div className="flex flex-col">
                 {navLinks.map((link) => {
                     return (
-                    <NavLink
-                        to={link.href}
-                        onClick={()=>props.toggle()}
-                        key={link.name}
-                        className={ ({ isActive, isPending }) => isActive ? 'p-4 text-[#dfc73e] text-[17px] font-medium' : 'text-black p-4 font-medium text-[17px]'}
-                    >
-                        {link.name}
-                    </NavLink>
+                        <NavLink
+                            to={link.href}
+                            key={link.name}
+                            onClick={()=>props.toggle()}
+                            className={ ({ isActive, isPending }) => isActive ? 'p-4 text-[#dfc73e] text-[17px] font-medium' : 'text-black p-4 font-medium text-[17px]'}
+                            >
+                            {link.icon}{link.name}
+                        </NavLink>   
                     )
                 })}
             </div>

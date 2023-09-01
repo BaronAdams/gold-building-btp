@@ -2,7 +2,6 @@ import ProjectCard from '~/components/ProjectCard'
 import type { V2_MetaFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { apiUrl } from '~/constants/index'
-import { GBApi } from '~/utils/helper'
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -11,7 +10,17 @@ export const meta: V2_MetaFunction = () => {
   ];
 }
 
-
+export async function loader() {
+  try {
+    const response = await fetch(`${apiUrl}/projects`,{
+      method:'GET'
+    })
+    const res = await response.json()
+    return { projects: res.data }
+  } catch (error) {
+    return error
+  }
+}
 const Projets = () => {
   const { projects } = useLoaderData()
   const isGreat = projects?.length > 2 ? ' justify-between' : ' justify-start gap-4'
@@ -23,18 +32,6 @@ const Projets = () => {
       >Aucun projet en cours</p>)}
     </div>
   )
-}
-export async function loader() {
-  try {
-    // const res = await GBApi.get('/projects')
-    const response = await fetch(`${apiUrl}/projects`,{
-      method:'GET'
-    })
-    const res = await response.json()
-    return { projects: res.data }
-  } catch (error) {
-    return error
-  }
 }
 
 export default Projets
