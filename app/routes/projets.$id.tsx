@@ -14,9 +14,9 @@ export async function loader({ params }: LoaderArgs) {
 }
 
 const Project =  () => {
-  const { project } = useLoaderData()
+  const project  = useLoaderData()
   console.log(project)
-  const isGreat = project.projectImgs.length > 2 ? ' justify-between' : ' justify-start gap-4'
+  const isGreat = project?.projectImgs.length > 2 ? ' justify-between' : ' justify-start gap-4'
   return (
     <div className='min-h-[100vh] pb-[50px]'>
         <div className="w-screen h-[60vh] max-[350px]:h-[55vh] rounded-none flex flex-wrap relative">
