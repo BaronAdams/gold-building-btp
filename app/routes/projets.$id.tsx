@@ -1,16 +1,15 @@
-import type { LoaderArgs } from "@remix-run/node"
+import { json, type LoaderArgs } from "@remix-run/node"
 import { useLoaderData } from '@remix-run/react'
 import { apiUrl } from "~/constants"
+import { getProject } from "~/services/project.server"
 
 export async function loader({ params }: LoaderArgs) {
   try {
-    const response = await fetch(`${apiUrl}/projects/${params.id}`,{
-      method:'GET'
-    })
-    const res = await response.json()
-    return { project: res.data }
+    //@ts-ignore
+    const project = await getProject(params.id)
+    return json(project)
   } catch (error) {
-    console.log(error)
+    return json(error,{status:500})
   }
 }
 

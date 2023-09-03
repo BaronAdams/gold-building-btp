@@ -1,7 +1,7 @@
 import ProjectCard from '~/components/ProjectCard'
-import type { V2_MetaFunction } from '@remix-run/node'
+import { json, type V2_MetaFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import { apiUrl } from '~/constants/index'
+import { getProjects } from '~/services/project.server'
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -12,17 +12,15 @@ export const meta: V2_MetaFunction = () => {
 
 export async function loader() {
   try {
-    const response = await fetch(`${apiUrl}/projects`,{
-      method:'GET'
-    })
-    const res = await response.json()
-    return { projects: res.data }
+    const projects = await getProjects()
+    return json(projects)
   } catch (error) {
-    return error
+    return json(error,{status:500})
   }
 }
+
 const Projets = () => {
-  const { projects } = useLoaderData()
+  const projects  = useLoaderData()
   const isGreat = projects?.length > 2 ? ' justify-between' : ' justify-start gap-4'
   return (
     <div className={'w-screen flex flex-wrap p-6 min-h-[80vh] justify-between '+ isGreat} style={{rowGap:'15px'}} >
